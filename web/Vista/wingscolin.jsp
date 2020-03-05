@@ -4,6 +4,9 @@
     Author     : lenovo
 --%>
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="Modelo.Querys"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,21 +134,38 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <th scope="row">1</th>
-      <th scope="row">1</th>
-      <th scope="row">1</th>
-      <th scope="row">1</th>
-      <th scope="row">1</th>
-      <th scope="row">1</th>
+        <%
+     
+        try{
+               ResultSet resUsuarios=null;
+        Querys consultaUsuario=new Querys();
+         resUsuarios=consultaUsuario.mostrarUsuarios2();
+        while(resUsuarios.next()){
+        %>
+      <tr>
+    
+      <th scope="row"><%=resUsuarios.getString(2)%></th>
+      <th scope="row"><%=resUsuarios.getString(3)%></th>
+      <th scope="row"><%=resUsuarios.getString(4)%></th>
+      <th scope="row"><%=resUsuarios.getString(5)%></th>
+      <th scope="row"><%=resUsuarios.getString(6)%></th>
+      <th scope="row"><%=resUsuarios.getString(7)%></th>
+      <th scope="row"><%=resUsuarios.getString(8)%></th>
       <th scope="row">
-          <button class="btn btn-secondary" id="editarUsuario">Editar</button>
-          <button class="btn btn-danger" id="eliminarUsuario">Eliminar</button>
+          
+          <button class="btn btn-secondary" id="editarUsuario" value="<%=resUsuarios.getString(1)%>">Editar</button>
+          <button class="btn btn-danger" id="eliminarUsuario" value="<%=resUsuarios.getString(1)%>">Eliminar</button>
           
       </th>
       
     </tr>
+        <%
+              }
+          }catch(SQLException e){
+System.out.println("error "+e.getMessage());
+}
+          %>
+      
   </tbody>
 </table>
                         

@@ -21,8 +21,7 @@ public class Querys {
     ResultSet rs = null;
     conectaBD cone = new conectaBD();
     private Connection con = cone.conexionBD();
-
-    public ArrayList<Usuario> mostrarUsuarios() {
+   public ArrayList<Usuario> mostrarUsuarios() {
         ArrayList<Usuario> usuarioView = new ArrayList<>();
         String sQL = "CALL selectUsuarios()";
         try {
@@ -50,7 +49,17 @@ public class Querys {
         }
         return usuarioView;
     }
-
+   public ResultSet mostrarUsuarios2(){
+        
+        try {
+            String sQL="CALL mostrarUsuarios()";
+            ps=con.prepareStatement(sQL);
+            return rs=ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+        }
+    }
     public boolean addUsuario(Usuario usr) {
 
         try {
