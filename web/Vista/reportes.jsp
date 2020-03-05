@@ -1,7 +1,7 @@
 <%-- 
-    Document   : wingscolin
-    Created on : 03-mar-2020, 16:24:03
-    Author     : lenovo
+    Document   : reportes
+    Created on : 4/03/2020, 08:52:58 PM
+    Author     : Aleck's
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,8 +14,7 @@
         <link href="../CSS/estilos.css" rel="stylesheet" type="text/css"/>
    <body>
      <div id="nombre" style="border: 2px solid transparent;font-size:40px;">
-       
-	<image src="photo.png" id="logo"> <center>Wings Colin</center>
+	 <image src="photo.png" id="logo"> <center>Wings Colin</center>
          </div>
        
         
@@ -33,7 +32,7 @@
                 <a href="proveedores.jsp">Proveedores</a>
                 <a href="direcciones.jsp">Direcciones</a>
                 <a href="sucursal.jsp">Sucursal</a>
-                <a href="reportes.jsp">Reportes</a>
+                <a>Reportes</a>
 		     
             </ul>
                  </section>
@@ -44,7 +43,7 @@
 
        	     
    <div id="partecentral">
-       
+       <center>REPORTES</center>
 	 </div>
 	 
 	 <div id="partebajo">
@@ -63,5 +62,3 @@
 
   </body>
 </html>
-
-
