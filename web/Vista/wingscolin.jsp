@@ -98,6 +98,22 @@
                         <select class="form-control form-control-sm" id="empleado" name="Empleado">
                         
                         <option>Seleccione Empleado</option>
+                        <%
+                            try{
+                        ResultSet resEmpleado=null;
+                        Querys consultasEmpleado=new Querys();
+                        resEmpleado=consultasEmpleado.mostEmpleado();
+                             while(resEmpleado.next()){
+                        %>
+                        <option value="<%=resEmpleado.getString(1)%>"><%=resEmpleado.getString(2)%></option>
+                        <%
+                            }
+                        }catch(SQLException e){
+
+                            }
+                            
+                        %>
+                        
                      </select>
                     
                    </div>

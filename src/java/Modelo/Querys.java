@@ -216,6 +216,17 @@ public class Querys {
             }
         }
     }
+        public ResultSet mostEmpleado(){
+        try {
+            String sQL="SELECT clvempleado,nomempleado FROM empleados";
+            ps=con.prepareStatement(sQL);
+            return rs=ps.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+       return null;
+        }
+        }
     
     public static void main(String[] args) {
         Querys q = new Querys();
