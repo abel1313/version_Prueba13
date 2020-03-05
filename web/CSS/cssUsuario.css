@@ -1,0 +1,18 @@
+.tableUsuario table thead tr{
+    font-family: 'Arial';
+    font-size: 14px;
+  
+}
+.tableUsuario table tbody tr{
+    font-family: 'Arial';
+    font-size: 14px;
+  
+}
+.tableUsuario table thead tr th:last-child{
+    width:210px;
+    
+}
+#partecentral{
+    overflow: scroll;
+}
+
