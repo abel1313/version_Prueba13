@@ -21,23 +21,29 @@ public class Querys {
     ResultSet rs = null;
     conectaBD cone = new conectaBD();
     private Connection con = cone.conexionBD();
-   public ArrayList<Usuario> mostrarUsuarios() {
-        ArrayList<Usuario> usuarioView = new ArrayList<>();
-        String sQL = "CALL selectUsuarios()";
+   public ArrayList<EmpleUsuaDTO> mostrarrUsuarios() {
+       
+        ArrayList<EmpleUsuaDTO> usuarioView = new ArrayList<>();
+        String sQL = "CALL mostrarUsuarios()";
         try {
             ps = con.prepareStatement(sQL);
             rs = ps.executeQuery();
-            Usuario usua = new Usuario();
+          
+            EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
             while (rs.next()) {
-                usua.setClave_Usuario(rs.getInt("clvusuario"));
-                usua.setNombre_Usuario(rs.getString("username"));
-                usua.setPass_Usuario(rs.getString("password"));
-                usua.setClave_Empleado(rs.getString("clvempleado"));
-                usuarioView.add(usua);
+               empUsu.setClave_Usuario(rs.getInt(1));
+               empUsu.setNombre_Empleado(rs.getString(2));
+               empUsu.setEdad_Empleado(rs.getInt(3));
+               empUsu.setSexo_Empleados(rs.getString(4));
+               empUsu.setNombre_Usuario(rs.getString(5));
+               empUsu.setCargo(rs.getString(6));
+               usuarioView.add(empUsu);
+
             }
         } catch (SQLException ex) {
 
             Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err "+ex.getMessage());
         } finally {
             try {
                 ps.close();
@@ -45,10 +51,49 @@ public class Querys {
                 rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("cone "+ex.getMessage());
             }
         }
         return usuarioView;
     }
+   
+   public ArrayList<DTO> mostrarrUsuariosDTO() {
+       
+        ArrayList<DTO> usuarioDTO = new ArrayList<>();
+        String sQL = "CALL mostrarUsuarios()";
+        try {
+            ps = con.prepareStatement(sQL);
+            rs = ps.executeQuery();
+          
+            DTO dto=new DTO();
+            while (rs.next()) {
+               dto.getUsrs().setClave_Usuario(rs.getInt(1));
+               dto.getEmplea().setNombre_Empleado(rs.getString(2));
+               dto.getEmplea().setEdad_Empleado(rs.getInt(3));
+               dto.getEmplea().setSexo_Empleado(rs.getString(4));
+               dto.getUsrs().setNombre_Usuario(rs.getString(5));
+               dto.getEmplea().setPuesto_Empleado(rs.getString(6));
+               usuarioDTO.add(dto);
+
+            }
+        } catch (SQLException ex) {
+
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err "+ex.getMessage());
+        } finally {
+            try {
+                ps.close();
+                con.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("cone "+ex.getMessage());
+            }
+        }
+        return usuarioDTO;
+    }
+   
+   
    public ResultSet mostrarUsuarios2(){
         
         try {
@@ -228,16 +273,7 @@ public class Querys {
         }
         }
     
-    public static void main(String[] args) {
-        Querys q = new Querys();
-        Usuario u = new Usuario();
-        ArrayList uvs;
-        uvs=new ArrayList();
-        for (int i=0;i<uvs.size();i++) {
-            System.out.println(uvs.get(i));
-            
-        }
-        
-    }
+
+  
 
 }

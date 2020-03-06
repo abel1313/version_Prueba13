@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author abel_
@@ -15,22 +17,46 @@ public class Usuario {
     private String nombre_Usuario;
     private String pass_Usuario;
     private String clave_Empleado;
-
-    public Usuario(int clave_Usuario, String nombre_Usuario, String pass_Usuario, String clave_Empleado) {
+    private Empleados emple;
+    private ArrayList<Empleados> empleados=new ArrayList<>();
+    
+    
+    
+    public Usuario(int clave_Usuario, String nombre_Usuario, String pass_Usuario, String clave_Empleado,Empleados empleado) {
         this.clave_Usuario = clave_Usuario;
         this.nombre_Usuario = nombre_Usuario;
         this.pass_Usuario = pass_Usuario;
         this.clave_Empleado = clave_Empleado;
+
     }
 
     public Usuario() {
+        
         this.clave_Usuario = 0;
         this.nombre_Usuario = "";
         this.pass_Usuario = "";
         this.clave_Empleado = "";
+       
 
     }
 
+    public Empleados getEmple() {
+        return emple;
+    }
+
+    public void setEmple(Empleados emple) {
+        this.emple = emple;
+    }
+
+    public ArrayList<Empleados> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(ArrayList<Empleados> empleados) {
+        this.empleados = empleados;
+    }
+
+    
     public int getClave_Usuario() {
         return clave_Usuario;
     }

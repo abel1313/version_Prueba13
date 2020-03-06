@@ -4,6 +4,7 @@
     Author     : lenovo
 --%>
 
+<%@page import="Modelo.EmpleUsuaDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="Modelo.Querys"%>
@@ -146,8 +147,6 @@
   <thead>
     <tr class="table-active">
       <th scope="col">Nombre Empleado</th>
-      <th scope="col">Apellido Paterno</th>
-      <th scope="col">Apellido Materno</th>
       <th scope="col">Edad</th>
       <th scope="col">Sexo</th>
       <th scope="col">User Name</th>
@@ -159,36 +158,51 @@
   <tbody>
         <%
      
-        try{
-               ArrayList<Usuario> resUsuarios=null;
+       try{
+               ArrayList<EmpleUsuaDTO> resUsuarios=null;
         Querys consultaUsuario=new Querys();
-         resUsuarios=consultaUsuario.mostrarUsuarios();
-         for(Usuario user:resUsuarios){
+         resUsuarios=consultaUsuario.mostrarrUsuarios();
+         for(EmpleUsuaDTO user:resUsuarios){
          
         
         %>
+        
+            <%-- 
+        ArrayList<DTO> resUsuarios=null;
+        Querys consultaUsuario=new Querys();
+         resUsuarios=consultaUsuario.mostrarrUsuariosDTO();
+         for(DTO user:resUsuarios){ --%>
       <tr>
-    
-      <th scope="row"><%=user.getClave_Usuario()%></th>
-      <th scope="row"><%=resUsuarios.getString(3)%></th>
-      <th scope="row"><%=resUsuarios.getString(4)%></th>
-      <th scope="row"><%=resUsuarios.getString(5)%></th>
-      <th scope="row"><%=resUsuarios.getString(6)%></th>
-      <th scope="row"><%=resUsuarios.getString(7)%></th>
-      <th scope="row"><%=resUsuarios.getString(8)%></th>
-      <th scope="row">
           
-          <button class="btn btn-secondary" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="<%=resUsuarios.getString(1)%>">Editar</button>
-          <button class="btn btn-danger" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="<%=resUsuarios.getString(1)%>">Eliminar</button>
+      <th scope="row"><%=user.getNombre_Empleado()%></th>
+      <th scope="row"><%=user.getEdad_Empleado()%></th>
+      <th scope="row"><%=user.getSexo_Empleados()%></th>
+      <th scope="row"><%=user.getNombre_Usuario()%></th>
+      <th scope="row"><%=user.getClave_Usuario()%></th>
+   
+     
+      <th scope="row">
+      <%--  
+      <th scope="row"><%=user.getEmplea().getNombre_Empleado()%></th>
+      <th scope="row"><%=user.getEmplea().getEdad_Empleado()%></th>
+      <th scope="row"><%=user.getEmplea().getSexo_Empleado()%></th>
+      <th scope="row"><%=user.getUsrs().getNombre_Usuario()%></th>
+      <th scope="row"><%=user.getUsrs().getClave_Usuario()%></th>
+      --%>
+          
+          
+          <button class="btn btn-secondary" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="">Editar</button>
+          <button class="btn btn-danger" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="">Eliminar</button>
           
       </th>
       
     </tr>
         <%
               }
-          }catch(SQLException e){
-System.out.println("error "+e.getMessage());
-}
+                }catch(Exception e){
+                   System.out.println("Err"+e.getMessage()); 
+            }
+
           %>
       
   </tbody>
