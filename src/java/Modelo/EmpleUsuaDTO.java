@@ -22,6 +22,8 @@ public class EmpleUsuaDTO implements Serializable{
     private int edad_Empleado;
     private String sexo_Empleados;
     private String cargo;
+    private String pass_Usuarion;
+    private String clave_Empleado;
 
     public EmpleUsuaDTO() {
      this.clave_Usuario=0;
@@ -32,8 +34,39 @@ public class EmpleUsuaDTO implements Serializable{
      this.edad_Empleado=0;
      this.sexo_Empleados="";
     this.cargo="";
+    this.pass_Usuarion="";
+    this.clave_Empleado="";
+    }
+    public EmpleUsuaDTO(int clave_Usuario,String nombre_Usuario,String nombre_Empleado,String clave_Empleado){
+    this.clave_Usuario=clave_Usuario;
+    this.nombre_Usuario=nombre_Usuario;
+    this.nombre_Empleado=nombre_Empleado;
+    this.clave_Empleado=clave_Empleado;
+    }
+    
+       public EmpleUsuaDTO(String nombre_Usuario,String pass_Usuario,String clave_Empleado){
+    this.nombre_Usuario=nombre_Usuario;
+    this.pass_Usuarion=pass_Usuario;
+    this.clave_Empleado=clave_Empleado;
     }
 
+    public String getClave_Empleado() {
+        return clave_Empleado;
+    }
+
+    public void setClave_Empleado(String clave_Empleado) {
+        this.clave_Empleado = clave_Empleado;
+    }
+
+    public String getPass_Usuarion() {
+        return pass_Usuarion;
+    }
+
+    public void setPass_Usuarion(String pass_Usuarion) {
+        this.pass_Usuarion = pass_Usuarion;
+    }
+
+    
     public String getCargo() {
         return cargo;
     }
@@ -98,6 +131,7 @@ public class EmpleUsuaDTO implements Serializable{
 
     public void setSexo_Empleados(String sexo_Empleados) {
         this.sexo_Empleados = sexo_Empleados;
+        
     }
     
     

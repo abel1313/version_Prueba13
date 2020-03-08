@@ -20,16 +20,18 @@
 
     <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
             <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+ <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  
  
         <link href="../CSS/estilos.css" rel="stylesheet" type="text/css"/>
         <link href="../CSS/cssUsuario.css" rel="stylesheet" type="text/css"/>
-        
+        <script src="../jQuery/jQueryUsuarios.js" type="text/javascript"></script>
         
         <title>Menú</title>
     </head>
@@ -70,6 +72,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                      Agregar Usuario
                     </button>
+                         
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,7 +86,7 @@
                           </div>
                           <div class="modal-body">
                               
-                <form>
+                <form id="formAddUsuario">
 
                    <div class="form-group">
                         <label for="userName">User Name</label>
@@ -103,9 +106,9 @@
                     
                    <div class="form-group">
                         <label for="empleado">Empleado</label>
-                        <select class="form-control form-control-sm" id="empleado" name="Empleado">
+                        <select class="form-control form-control-sm" id="empleado" name="EmpleadoAgregar">
                         
-                        <option>Seleccione Empleado</option>
+                            <option value="0">Seleccione Empleado</option>
                         <%
                             try{
                         ResultSet resEmpleado=null;
@@ -132,78 +135,79 @@
                 </form>
                               
                           </div>
-                          <div class="modal-footer">
+                        
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
+                            <button type="button" class="btn btn-primary" id="addUser">Agregar Usuario</button>
+                        </div>
                         </div>
                       </div>
                     </div>
-                    
-                    
-                    <div class="tableUsuario">
-                        
-                        <table class="table table-bordered table table-lg">
-  <thead>
-    <tr class="table-active">
-      <th scope="col">Nombre Empleado</th>
-      <th scope="col">Edad</th>
-      <th scope="col">Sexo</th>
-      <th scope="col">User Name</th>
-      <th scope="col">Cargo</th>
-      <th scope="col">Acción</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-        <%
-     
-       try{
-               ArrayList<EmpleUsuaDTO> resUsuarios=null;
-        Querys consultaUsuario=new Querys();
-         resUsuarios=consultaUsuario.mostrarrUsuarios();
-         for(EmpleUsuaDTO user:resUsuarios){
-         
-        
-        %>
-        
-            <%-- 
-        ArrayList<DTO> resUsuarios=null;
-        Querys consultaUsuario=new Querys();
-         resUsuarios=consultaUsuario.mostrarrUsuariosDTO();
-         for(DTO user:resUsuarios){ --%>
-      <tr>
-          
-      <th scope="row"><%=user.getNombre_Empleado()%></th>
-      <th scope="row"><%=user.getEdad_Empleado()%></th>
-      <th scope="row"><%=user.getSexo_Empleados()%></th>
-      <th scope="row"><%=user.getNombre_Usuario()%></th>
-      <th scope="row"><%=user.getClave_Usuario()%></th>
-   
-     
-      <th scope="row">
-      <%--  
-      <th scope="row"><%=user.getEmplea().getNombre_Empleado()%></th>
-      <th scope="row"><%=user.getEmplea().getEdad_Empleado()%></th>
-      <th scope="row"><%=user.getEmplea().getSexo_Empleado()%></th>
-      <th scope="row"><%=user.getUsrs().getNombre_Usuario()%></th>
-      <th scope="row"><%=user.getUsrs().getClave_Usuario()%></th>
-      --%>
-          
-          
-          <button class="btn btn-secondary" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="">Editar</button>
-          <button class="btn btn-danger" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="">Eliminar</button>
-          
-      </th>
-      
-    </tr>
-        <%
-              }
-                }catch(Exception e){
-                   System.out.println("Err"+e.getMessage()); 
-            }
 
-          %>
+
+                    <div class="tableUsuario">
+
+                        <table class="table table-bordered table table-lg">
+                            <thead>
+                                <tr class="table-active">
+                                    <th scope="col">Nombre Empleado</th>
+                                    <th scope="col">Edad</th>
+                                    <th scope="col">Sexo</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Cargo</th>
+                                    <th scope="col">Clave Usuario</th>
+                                    <th scope="col">Acción</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%            try {
+                                        ArrayList<EmpleUsuaDTO> resUsuarios = null;
+                                        Querys consultaUsuario = new Querys();
+                                        resUsuarios = consultaUsuario.mostrarrUsuarios();
+                                        for (EmpleUsuaDTO user : resUsuarios) {
+
+
+                                %>
+
+                                <%-- 
+                            ArrayList<DTO> resUsuarios=null;
+                            Querys consultaUsuario=new Querys();
+                             resUsuarios=consultaUsuario.mostrarrUsuariosDTO();
+                             for(DTO user:resUsuarios){ --%>
+                                <tr>
+
+                                    <th scope="row"><%=user.getNombre_Empleado()%></th>
+                                    <th scope="row"><%=user.getEdad_Empleado()%></th>
+                                    <th scope="row"><%=user.getSexo_Empleados()%></th>
+                                    <th scope="row"><%=user.getNombre_Usuario()%></th>
+                                    <th scope="row"><%=user.getCargo()%></th>
+                                    <th scope="row"><%=user.getClave_Usuario()%></th>
+
+                                    <th scope="row">
+
+                                        <%--  
+                                        <th scope="row"><%=user.getEmplea().getNombre_Empleado()%></th>
+                                        <th scope="row"><%=user.getEmplea().getEdad_Empleado()%></th>
+                                        <th scope="row"><%=user.getEmplea().getSexo_Empleado()%></th>
+                                        <th scope="row"><%=user.getUsrs().getNombre_Usuario()%></th>
+                                        <th scope="row"><%=user.getUsrs().getClave_Usuario()%></th>
+                                        --%>
+
+
+                                        <button class="btn btn-secondary editarUsuarios" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="<%=user.getClave_Usuario()%>">Editar</button>
+                                        <button class="btn btn-danger" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="<%=user.getClave_Usuario()%>">Eliminar</button>
+
+                                    </th>
+
+                                </tr>
+                                <%
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println("Err" + e.getMessage());
+                                    }
+
+                                %>
       
   </tbody>
 </table>
@@ -219,28 +223,33 @@
                             </button>
                           </div>
                           <div class="modal-body">
+                              <div class="loader"></div>
                               
-                <form>
+                             
+                <form id="formEditarUsuario">
 
                    <div class="form-group">
+                       <input type="hidden" id="claveUsuario" name="ClaveUsuario"/>
+                       <input type="hidden" id="claveEmpleado" name="ClaveEmpleado"/>
+                       
                         <label for="userName">User Name</label>
-                        <input type="text" class="form-control" id="userName" name="UserName"  placeholder="Ingrese Usuario">
+                        <input type="text" class="form-control" id="userNameEditar" name="UserName"  placeholder="Ingrese Usuarios"/>
                        
                    </div>
 
                    <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="Password" placeholder="Password">
+                        <input type="password" class="form-control" id="passwordEditar" name="Password" placeholder="Password"/>
                    </div>
                     
                        <div class="form-group">
                         <label for="confpassword">Confirmar Password</label>
-                        <input type="password" class="form-control" id="confpassword" name="confPassword" placeholder="Confirme Password">
+                        <input type="password" class="form-control" id="confpasswordEditar" name="confPassword" placeholder="Confirme Password">
                         </div>
                     
                    <div class="form-group">
                         <label for="empleado">Empleado</label>
-                        <select class="form-control form-control-sm" id="empleado" name="Empleado">
+                        <select class="form-control form-control-sm" id="empleadoEditar" name="Empleado">
                         
                         <option>Seleccione Empleado</option>
                         <%
@@ -271,7 +280,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary">Editar Usuario</button>
                           </div>
                         </div>
                       </div>
@@ -281,7 +290,7 @@
           
           
           
-          <div class="modal fade" id="exampleModalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -300,6 +309,28 @@
     </div>
   </div>
 </div>
+                        
+                        
+<div class="modal fade" id="exampleModalMensajeUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mensajeUsuario"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mensajesUsuarios">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+                        
           
                     </div>
             
@@ -316,9 +347,15 @@
                    
        
      
- 
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script>
+        
+    
+        
+    </script>
   </body>
 </html>

@@ -21,6 +21,50 @@ public class Querys {
     ResultSet rs = null;
     conectaBD cone = new conectaBD();
     private Connection con = cone.conexionBD();
+    
+    public ResultSet mosUsu(){
+    
+        try {
+            String sQL="CALL mostrarUsuarios()";
+            ps=con.prepareStatement(sQL);
+            return rs=ps.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+        }
+     }
+       public ArrayList<EmpleUsuaDTO> mostrarUsuarioEditar(EmpleUsuaDTO edUsurio) {
+       
+        ArrayList<EmpleUsuaDTO> usuarioView = new ArrayList<>();
+        String sQL = "CALL usuarioBuscarEditar(?)";
+        try {
+            ps = con.prepareStatement(sQL);
+            ps.setInt(1, edUsurio.getClave_Usuario());
+            rs = ps.executeQuery();
+          
+            while (rs.next()) {
+          EmpleUsuaDTO empUsu=new EmpleUsuaDTO(rs.getInt("clvusuario"), rs.getString("username"),   
+                  rs.getString("nomempleado"), rs.getString("clvempleado"));
+               usuarioView.add(empUsu);
+
+            }
+        } catch (SQLException ex) {
+
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err "+ex.getMessage());
+        } finally {
+            try {
+                ps.close();
+                con.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("cone "+ex.getMessage());
+            }
+        }
+        return usuarioView;
+    }
    public ArrayList<EmpleUsuaDTO> mostrarrUsuarios() {
        
         ArrayList<EmpleUsuaDTO> usuarioView = new ArrayList<>();
@@ -29,9 +73,10 @@ public class Querys {
             ps = con.prepareStatement(sQL);
             rs = ps.executeQuery();
           
-            EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
+            
             while (rs.next()) {
-               empUsu.setClave_Usuario(rs.getInt(1));
+EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
+                empUsu.setClave_Usuario(rs.getInt(1));
                empUsu.setNombre_Empleado(rs.getString(2));
                empUsu.setEdad_Empleado(rs.getInt(3));
                empUsu.setSexo_Empleados(rs.getString(4));
@@ -105,14 +150,14 @@ public class Querys {
         return null;
         }
     }
-    public boolean addUsuario(Usuario usr) {
+    public boolean addUsuario(EmpleUsuaDTO usr) {
 
         try {
             String sQL = "CALL addUsuario(?,?,?)";
             ps = (PreparedStatement) con.prepareStatement(sQL);
 
             ps.setString(1, usr.getNombre_Usuario());
-            ps.setString(2, usr.getPass_Usuario());
+            ps.setString(2, usr.getPass_Usuarion());
             ps.setString(3, usr.getClave_Empleado());
 
             ps.executeUpdate();
@@ -272,8 +317,35 @@ public class Querys {
        return null;
         }
         }
+        public int buscarIguales(String userName){
+        try {
+            String sQL="CALL buscaarUsuariosIguales(?)";
+            ps=con.prepareStatement(sQL);
+            ps.setString(1, userName);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+            return 1;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+       return 1;
+        }
+            
+        }
     
-
+//    public static void main(String[] args) {
+//      Querys datosEditarUsuario=new Querys();
+//       EmpleUsuaDTO dtoEmpUsuarios=new EmpleUsuaDTO();
+//       ArrayList<EmpleUsuaDTO>regDatosUsuario=null;
+//       dtoEmpUsuarios.setClave_Usuario(3);
+//       regDatosUsuario=datosEditarUsuario.mostrarrUsuarios();
+//        
+//        for (EmpleUsuaDTO empleUsuaDTO : regDatosUsuario) {
+//            System.out.println(empleUsuaDTO.getNombre_Usuario());
+//        }
+//    }
   
 
 }
