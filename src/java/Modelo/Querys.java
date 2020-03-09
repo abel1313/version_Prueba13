@@ -334,6 +334,45 @@ EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
         }
             
         }
+        
+           public ArrayList<ProductoProveedorDTO> mostrarProducto() {
+       
+        ArrayList<ProductoProveedorDTO> productoView = new ArrayList<>();
+        String sQL = "CALL buscarProductos()";
+        try {
+            ps = con.prepareStatement(sQL);
+            rs = ps.executeQuery();
+          
+            
+            while (rs.next()) {
+ProductoProveedorDTO productioProveedor=new ProductoProveedorDTO();
+                productioProveedor.setClave_Producto(rs.getString(1));
+               productioProveedor.setNombre_Producto(rs.getString(2));
+               productioProveedor.setPrecio_Producto(rs.getDouble(3));
+               productioProveedor.setExistencias_Producto(rs.getDouble(4));
+               productioProveedor.setDescripcion_Producto(rs.getString(5));
+               productioProveedor.setFecha_Cadocidad(rs.getString(6));
+               productioProveedor.setNombre_Proveedor(rs.getString(6));
+               productoView.add(productioProveedor);
+
+            }
+        } catch (SQLException ex) {
+
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err "+ex.getMessage());
+        } finally {
+            try {
+                ps.close();
+                con.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("cone "+ex.getMessage());
+            }
+        }
+        return productoView;
+    }
+        
     
 //    public static void main(String[] args) {
 //      Querys datosEditarUsuario=new Querys();

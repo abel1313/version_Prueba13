@@ -18,6 +18,12 @@
 #partecentral{
     overflow: scroll;
 }
+#productosDetalleVenta{
+    overflow: scroll;
+}
+#productosTables{
+    overflow: scroll;
+}
 .loader {
     position: fixed;
     left: 0px;
@@ -29,22 +35,26 @@
     opacity: .8;
 }
 #partecentral2{
-        border: 2px solid black;
-    font-size:28px;
-    height:100%;
+    border: 2px solid black;
+    font-size:14px;
+    height:245px;
     width: 100%;
     background: #f2f2f2;
-       border: 1px solid red;
-}
-#productosTables{
-    width: 100%;
-    height: 50%;
-    border: 1px solid red;
-   
+       
 }
 #productosDetalleVenta{
-     width: 100%;
-    height: 50%;
-    border: 1px solid red;
-      
+
+    border: 2px solid black;
+    font-size:14px;
+    height:245px;
+    width: 100%;
+    background: #f2f2f2;  
 }
+#productosTables{
+      border: 2px solid black;
+    font-size:14px;
+    height:245px;
+    width: 100%;
+    background: #f2f2f2;   
+}
+
