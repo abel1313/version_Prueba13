@@ -43,6 +43,7 @@ public class EmpleUsuaDTO implements Serializable{
     this.nombre_Empleado=nombre_Empleado;
     this.clave_Empleado=clave_Empleado;
     }
+  
     
        public EmpleUsuaDTO(String nombre_Usuario,String pass_Usuario,String clave_Empleado){
     this.nombre_Usuario=nombre_Usuario;

@@ -1,7 +1,10 @@
 .tableUsuario table thead tr{
     font-family: 'Arial';
     font-size: 14px;
-  
+}
+#tablaProductos,#productosTables{
+       font-family: 'Arial';
+    font-size: 14px;
 }
 .tableUsuario table tbody tr{
     font-family: 'Arial';
@@ -25,5 +28,23 @@
     background: url('../Imagenes/cargando.gif') 50% 50% no-repeat rgb(249,249,249);
     opacity: .8;
 }
-
-
+#partecentral2{
+        border: 2px solid black;
+    font-size:28px;
+    height:100%;
+    width: 100%;
+    background: #f2f2f2;
+       border: 1px solid red;
+}
+#productosTables{
+    width: 100%;
+    height: 50%;
+    border: 1px solid red;
+   
+}
+#productosDetalleVenta{
+     width: 100%;
+    height: 50%;
+    border: 1px solid red;
+      
+}

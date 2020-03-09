@@ -1,19 +1,50 @@
 $(function () {
+          
+             setTimeout(function ()
+        {
+          $(".loader").fadeOut("slow"); 
+        }, 2000);
 soloLetras($("#userName"));
+    soloLetras($("#userNameEditar"));
+    
     $(".editarUsuarios").click(function () {
         editarEliminar("../AgregarUsuario", $(this).val());
 
     });
 
     $("#addUser").click(function () {
-
+        setTimeout(function ()
+        {
+           
+        }, 2000);
         addUsrs("../addUser", $("#formAddUsuario").serialize())
-
+        
+    });
+    
+    
+    $("#updateUsuario").click(function(){
+        
+        
+        
+        editarUsuario("../EditarEliminarUsuarios",$("#formEditarUsuario").serialize());
+        
+    });
+    
+    
+    $("#eliminarUsuario").click(function(){
+        $("#exampleModalEliminar").modal("show");
+        $(".recibirEliminarUsuario").val($(this).val());
+    });
+    
+    $(".recibirEliminarUsuario").click(function(){
+        
+        eliminarEditar("../EditarEliminarUsuarios",$(this).val());
+        
     });
     
 
-
 });
+
 
 function addUsrs(url, datos) {
     
@@ -23,6 +54,7 @@ function addUsrs(url, datos) {
         data: datos,
         success: function (res) {
             console.log(res);
+        
             if (res == 1) {
                 $("#exampleModal").modal("hide");
                 $("#exampleModalMensajeUsuario").modal("show");
@@ -33,6 +65,7 @@ function addUsrs(url, datos) {
                         {
                             $("#exampleModalMensajeUsuario").modal("hide");
                             $("#exampleModal").modal("show");
+                            
 
                         }, 2000);
 
@@ -48,6 +81,7 @@ function addUsrs(url, datos) {
                         {
                             $("#exampleModalMensajeUsuario").modal("hide");
                             $("#exampleModal").modal("show");
+                            
 
                         }, 2000);
 
@@ -68,12 +102,14 @@ function addUsrs(url, datos) {
                 $("#exampleModalMensajeUsuario").modal("show");
                 $("#mensajeUsuario").text("Mensaje");
                 $(".mensajesUsuarios").text("Éste usuario se Agrego correctamente");
+                
+                
                 setTimeout(
                         function ()
                         {
-                            $("#exampleModalMensajeUsuario").modal("hide");
+                           
                             $("#exampleModal").modal("hide");
-
+                            
                         }, 2000);
             } else if (res == 6) {
                 $("#exampleModal").modal("hide");
@@ -84,7 +120,7 @@ function addUsrs(url, datos) {
                         function ()
                         {
                             $("#exampleModalMensajeUsuario").modal("hide");
-                            $("#exampleModal").modal("show");
+                            $("#exampleModal").modal("hide");
 
                         }, 2000);
             }
@@ -114,8 +150,8 @@ function editarEliminar(url, data) {
                     {
                         $(".loader").fadeOut("slow");
                     }, 2000);
-            $("#claveUsuarioEditar").val(respuesta.clave_Usuario);
-            $("#claveEmpleadoEditar").val(respuesta.clave_Empleado);
+            $("#claveUsuario").val(respuesta.clave_Usuario);
+            
             $("#userNameEditar").val(respuesta.nombre_Usuario);
 
 
@@ -132,12 +168,169 @@ function editarEliminar(url, data) {
     });
     return false;
 }
+
+function eliminarEditar(url, data) {
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: {dat: data},
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+
+                $("#exampleModalEditar").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("Éste usuario se elimino correctamente");
+                 $("#exampleModalEliminar").modal("hide");
+
+                setTimeout(
+                        function ()
+                        {
+
+                            $("#exampleModalMensajeUsuario").modal("hide");
+                            $(location).attr("href","../Vista/usuarios.jsp");
+//                           actualizandoDatosAjax();
+                        }, 2000);
+            } else if (r == 2) {
+                $("#exampleModal").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("El usuario no se elimino");
+                setTimeout(
+                        function ()
+                        {
+                            $("#exampleModalMensajeUsuario").modal("hide");
+                            $("#exampleModal").modal("hide");
+
+                        }, 2000);
+
+            }
+            setTimeout(
+                    function ()
+                    {
+                        $(".loader").fadeOut("slow");
+                    }, 2000);
+
+
+
+
+        },
+        error: function (jqXHR, status, error) {
+            console.log(status);
+        }, complete: function (jqXHR, status) {
+            console.log(status);
+        }, timeoute: 4000
+
+    });
+    return false;
+}
+
+function editarUsuario(url, data) {
+    $.ajax({
+        url: url,
+        type: "post",
+        data:data,
+        success: function (respuesta) {
+            console.log(respuesta);
+            if(respuesta==1){
+                  $("#exampleModalEditar").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("No deje campos vacios");
+                setTimeout(
+                        function ()
+                        {
+                            $("#exampleModalMensajeUsuario").modal("hide");
+                            $("#exampleModal").modal("show");
+                            
+
+                        }, 2000);
+            }else if(respuesta==3){
+                
+                 $("#exampleModalEditar").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("Las contraseñas no coinciden");
+                setTimeout(
+                        function ()
+                        {
+                            $("#exampleModalMensajeUsuario").modal("hide");
+                            $("#exampleModal").modal("show");
+                            
+
+                        }, 2000);
+                
+            }else if(respuesta==4){
+                $("#exampleModal").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("Éste usuario ya existe");
+                setTimeout(
+                        function ()
+                        {
+                            $("#exampleModalMensajeUsuario").modal("hide");
+                            $("#exampleModal").modal("show");
+
+                        }, 2000);
+            }else if(respuesta==5){
+                     
+                $("#exampleModalEditar").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("Éste usuario se Actualizo correctamente");
+            
+                
+                setTimeout(
+                        function ()
+                        {
+                           
+                            $("#exampleModalMensajeUsuario").modal("hide");
+//                           actualizandoDatosAjax();
+                        }, 5000);
+                
+            }else if(respuesta==6){
+                
+                $("#exampleModal").modal("hide");
+                $("#exampleModalMensajeUsuario").modal("show");
+                $("#mensajeUsuario").text("Mensaje");
+                $(".mensajesUsuarios").text("El usuario no se Agregó");
+                setTimeout(
+                        function ()
+                        {
+                            $("#exampleModalMensajeUsuario").modal("hide");
+                            $("#exampleModal").modal("hide");
+
+                        }, 2000);
+                        
+            }
+            setTimeout(
+                    function ()
+                    {
+                        $(".loader").fadeOut("slow");
+                    }, 2000);
+  
+
+
+        },
+        error: function (jqXHR, status, error) {
+            console.log(status);
+        }, complete: function (jqXHR, status) {
+            console.log(status);
+        }, timeoute: 4000
+
+    });
+    return false;
+}
+
 function actualizandoDatosAjax() {
     $.ajax({
         url: "../cargandoUsuarios",
         type: "post",
-         success: function (respuesta) {
-            console.log(respuesta);
+         success: function (llenarDatosUsuarios) {
+            console.log(llenarDatosUsuarios);
+            $(".tableUsuario").html(llenarDatosUsuarios);
+            
         },
         error: function (jqXHR, status, error) {
             console.log(status);

@@ -44,25 +44,25 @@
         
    <center>
        <header>
-             <section id="menu">
-             <ul>
-	         <a href="usuarios.jsp">Usuarios</a>
-                 <a href="empleados.jsp">Empleados</a>
-                 <a href="productos.jsp">Productos</a>
-		<a href="compras.jsp">Compras</a>
-		<a href="detallecompra.jsp">Detalle de Compras</a>
-	        <a href="ventas.jsp">Ventas</a>
-                <a href="detalleventa.jsp">Detalle de Ventas</a>
-                <a href="proveedores.jsp">Proveedores</a>
-                <a href="direcciones.jsp">Direcciones</a>
-                <a href="sucursal.jsp">Sucursal</a>
-                <a href="reportes.jsp">Reportes</a>
-		     
-            </ul>
-                 </section>
-             
-     </header>
-	 </center>
+           <section id="menu">
+               <ul>
+                   <a href="usuarios.jsp">Usuarios</a>
+                   <a href="empleados.jsp">Empleados</a>
+                   <a href="productos.jsp">Productos</a>
+                   <a href="compras.jsp">Compras</a>
+                   <a href="detallecompra.jsp">Detalle de Compras</a>
+                   <a href="ventas.jsp">Ventas</a>
+                   <a href="detalleventa.jsp">Detalle de Ventas</a>
+                   <a href="proveedores.jsp">Proveedores</a>
+                   <a href="direcciones.jsp">Direcciones</a>
+                   <a href="sucursal.jsp">Sucursal</a>
+                   <a href="reportes.jsp">Reportes</a>
+
+               </ul>
+           </section>
+
+       </header>
+   </center>
   
 
        	     
@@ -85,7 +85,7 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                              
+                              <div class="loader"></div>
                 <form id="formAddUsuario">
 
                    <div class="form-group">
@@ -155,7 +155,7 @@
                                     <th scope="col">Sexo</th>
                                     <th scope="col">User Name</th>
                                     <th scope="col">Cargo</th>
-                                    <th scope="col">Clave Usuario</th>
+                                    
                                     <th scope="col">Acción</th>
 
                                 </tr>
@@ -182,7 +182,7 @@
                                     <th scope="row"><%=user.getSexo_Empleados()%></th>
                                     <th scope="row"><%=user.getNombre_Usuario()%></th>
                                     <th scope="row"><%=user.getCargo()%></th>
-                                    <th scope="row"><%=user.getClave_Usuario()%></th>
+                                    
 
                                     <th scope="row">
 
@@ -196,7 +196,7 @@
 
 
                                         <button class="btn btn-secondary editarUsuarios" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="<%=user.getClave_Usuario()%>">Editar</button>
-                                        <button class="btn btn-danger" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="<%=user.getClave_Usuario()%>">Eliminar</button>
+                                        <button class="btn btn-danger enviarEliminarUsuario" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="<%=user.getClave_Usuario()%>">Eliminar</button>
 
                                     </th>
 
@@ -208,16 +208,16 @@
                                     }
 
                                 %>
-      
-  </tbody>
-</table>
-                        
+
+                            </tbody>
+                        </table>
+
           
            <div class="modal fade" id="exampleModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Editar Usuarios</h5>
+                            <h5 class="modal-title mensajeEdUs" id="exampleModalLabel">Editar Usuarios</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
@@ -229,27 +229,28 @@
                 <form id="formEditarUsuario">
 
                    <div class="form-group">
-                       <input type="hidden" id="claveUsuario" name="ClaveUsuario"/>
-                       <input type="hidden" id="claveEmpleado" name="ClaveEmpleado"/>
+                       <input type="hidden" id="claveUsuario" name="ClaveUsuariosEditar"/>
+                       
+                       <input type="hidden" id="ediEmpleado" name="edUsu" value="ediarUsuario"/>
                        
                         <label for="userName">User Name</label>
-                        <input type="text" class="form-control" id="userNameEditar" name="UserName"  placeholder="Ingrese Usuarios"/>
+                        <input type="text" class="form-control" id="userNameEditar" name="UserNameEditarUsuario"  placeholder="Ingrese Usuarios"/>
                        
                    </div>
 
                    <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="passwordEditar" name="Password" placeholder="Password"/>
+                        <input type="password" class="form-control" id="passwordEditar" name="PasswordEditarUsuario" placeholder="Password"/>
                    </div>
                     
                        <div class="form-group">
                         <label for="confpassword">Confirmar Password</label>
-                        <input type="password" class="form-control" id="confpasswordEditar" name="confPassword" placeholder="Confirme Password">
+                        <input type="password" class="form-control" id="confpasswordEditar" name="confPasswordEditarUsuario" placeholder="Confirme Password">
                         </div>
                     
                    <div class="form-group">
                         <label for="empleado">Empleado</label>
-                        <select class="form-control form-control-sm" id="empleadoEditar" name="Empleado">
+                        <select class="form-control form-control-sm" id="empleadoEditar" name="EmpleadoEditarUsuario">
                         
                         <option>Seleccione Empleado</option>
                         <%
@@ -280,7 +281,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Editar Usuario</button>
+                            <button type="button" class="btn btn-primary" id="updateUsuario">Editar Usuario</button>
                           </div>
                         </div>
                       </div>
@@ -304,7 +305,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
+        <button type="button" class="btn btn-primary recibirEliminarUsuario">Eliminar</button>
       </div>
     </div>
   </div>
@@ -321,10 +322,10 @@
         </button>
       </div>
       <div class="modal-body mensajesUsuarios">
-       
+        <div class="loader"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         
       </div>
     </div>

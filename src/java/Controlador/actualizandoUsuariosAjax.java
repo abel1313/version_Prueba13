@@ -5,9 +5,11 @@
  */
 package Controlador;
 
+import Modelo.EmpleUsuaDTO;
 import Modelo.Querys;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -73,9 +75,86 @@ public class actualizandoUsuariosAjax extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
         String tablaUsuarios="";
         Querys actUsuariosAjax=new Querys();
+        
+        
+                    tablaUsuarios+="<table class='table table-bordered table table-lg'>"
+                            + "<thead>"
+                            + "<tr class='table-active'>"
+                            + " <th scope='col'>Nombre Empleado</th>"
+                            + " <th scope='col'>Edad</th>"
+                            + " <th scope='col'>Sexo</th>"
+                            + " <th scope='col'>User Name</th>"
+                            + " <th scope='col'>Cargo</th>"
+                            
+                            + " <th scope='col'>Acción</th>"
+                            + " </tr>"
+                            + " </thead>"
+                            + " <tbody>";
+                                            try {
+                                        ArrayList<EmpleUsuaDTO> resUsuarios = null;
+                                        Querys consultaUsuario = new Querys();
+                                        resUsuarios = consultaUsuario.mostrarrUsuarios();
+                                        for (EmpleUsuaDTO user : resUsuarios) {
+                                            
+               tablaUsuarios+="<tr>"
+
+                                  +"<th scope='row'>"+user.getNombre_Empleado()+"</th>"
+                                  +"<th scope='row'>"+user.getEdad_Empleado()+"</th>"
+                                  +"<th scope='row'>"+user.getSexo_Empleados()+"</th>"
+                                  +"<th scope='row'>"+user.getNombre_Usuario()+"</th>"
+                                  +"<th scope='row'>"+user.getCargo()+"</th>"
+                                  
+
+                                  +"<th scope='row'>"
+
+                                    
+
+
+                                  +"<button class='btn btn-secondary editarUsuarios' id='editarUsuario' data-toggle='modal' data-target='#exampleModalEditar' value="+user.getClave_Usuario()+">Editar</button>"
+                                  +"<button class='btn btn-danger' id='eliminarUsuario' data-toggle='modal' data-target='#exampleModalEliminar' value="+user.getClave_Usuario()+">Eliminar</button>"
+
+                                  +"</th>"
+
+                                +"</tr>";
+                                
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println("Err" + e.getMessage());
+                                    }
+
+                              
+      
+ tablaUsuarios+="</tbody>"
++"</table>";
+ 
+ String mensa="";
+ 
+mensa+="<div class='modal fade' id='exampleModalMensajeUsuario' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+  +"<div class='modal-dialog' role='document'>"
+    +"<div class='modal-content'>"
+      +"<div class='modal-header'>"
+      +"  <h5 class='modal-title' id='mensajeUsuario'></h5>"
+      +"  <button type='button' class='close' data-dismiss='modal' aria-label='Close'>"
+      +"    <span aria-hidden='true'>&times;</span>"
+      +"  </button>"
+      +"</div>"
+      +"<div class='modal-body mensajesUsuarios'>"
+       
+     +" </div>"
+      +"<div class='modal-footer'>"
+       +" <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cerrar</button>"
+        
+     +" </div>"
+   +" </div>"
+  +"</div>"
++"</div>";
+        
+      out.println(mensa);
+      out.println(tablaUsuarios);
         
         
         
