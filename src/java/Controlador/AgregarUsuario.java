@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.AES;
 import Modelo.EmpleUsuaDTO;
 import Modelo.Hash;
 import Modelo.Querys;
@@ -88,7 +89,7 @@ public class AgregarUsuario extends HttpServlet {
       }else if(!UserName.equals("")&& !Pass.equals("") && !conPass.equals("") && !claveEmpleado.equals("")){
           if(Pass.equals(conPass)){
               if(consultasUsuarios.buscarIguales(UserName)==0){
-                  String contraEncriptada=Hash.sha1(Pass);
+                  String contraEncriptada=AES.encrypt(Pass,"");
       EmpleUsuaDTO addUsuarios=new EmpleUsuaDTO(UserName, contraEncriptada, claveEmpleado);
                   if(consultasUsuarios.addUsuario(addUsuarios)){
                      out.println(5); 

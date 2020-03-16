@@ -7,11 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+    <head>
      <meta charset="utf-8">       
   
       <title>Menu</title>
       <!--  <link rel="stylesheet" href="estilos.css"> -->
         <link href="../CSS/estilos.css" rel="stylesheet" type="text/css"/>
+    </head>
+        
    <body>
      <div id="nombre" style="border: 2px solid transparent;font-size:40px;">
 	<image src="photo.png" id="logo">  <center>Wings Colin</center>
@@ -57,8 +60,7 @@
      
  
 
- </head>
- <body>
+
 
   </body>
 </html>

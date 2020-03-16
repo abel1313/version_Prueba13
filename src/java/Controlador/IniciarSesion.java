@@ -5,6 +5,8 @@
  */
 package Controlador;
 
+import Modelo.Querys;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -72,7 +74,29 @@ public class IniciarSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String usuario=request.getParameter("UserName");
+        String pass=request.getParameter("Password");
+        Querys consultaSesion=new Querys();
+        Usuario propiedadesUsuario=new Usuario();
+        propiedadesUsuario.setNombre_Usuario(usuario);
+        propiedadesUsuario.setPass_Usuario(pass);
+        
+        if(usuario.equals("")&&pass.equals("")){
+            out.println(3);
+        }else if(!usuario.equals("")&&!pass.equals("")){
+        if(consultaSesion.iniciarSesion(propiedadesUsuario)){
+            out.println(1);
+        }else{
+        out.println(2);
+            
+        }    
+        }
+        
+        
+        
+        
     }
 
     /**

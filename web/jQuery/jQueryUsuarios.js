@@ -1,4 +1,6 @@
 $(function () {
+    
+          $("#tablaUsuario").DataTable();
           
              setTimeout(function ()
         {
@@ -102,7 +104,7 @@ function addUsrs(url, datos) {
                 $("#exampleModalMensajeUsuario").modal("show");
                 $("#mensajeUsuario").text("Mensaje");
                 $(".mensajesUsuarios").text("Éste usuario se Agrego correctamente");
-                
+                $(location).attr("href","../Vista/usuarios.jsp");
                 
                 setTimeout(
                         function ()

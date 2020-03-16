@@ -24,10 +24,10 @@ public class ProductoProveedorDTO {
         this.nombre_Producto="";
         this.precio_Producto=0;
         this.existencias_Producto=0;
-        this.descripcion_Producto="";
+        
         this.fecha_Cadocidad="";
         this.nombre_Proveedor="";
-        this.clave_Proveedor="";
+        
         
     }
 
@@ -55,7 +55,7 @@ public class ProductoProveedorDTO {
         this.clave_Producto = clave_Producto;
     }
 
-    public String getNombre_Producto() {
+        public String getNombre_Producto() {
         return nombre_Producto;
     }
 

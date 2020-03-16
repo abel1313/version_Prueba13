@@ -5,8 +5,11 @@
  */
 package Modelo;
 
+import Controlador.Usuarios;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +68,75 @@ public class Querys {
         }
         return usuarioView;
     }
-   public ArrayList<EmpleUsuaDTO> mostrarrUsuarios() {
+ 
+             public ArrayList<Detalle_VentaDTO> agregarDetalle(Detalle_VentaDTO addDetalle) {
+       
+        ArrayList<Detalle_VentaDTO> agregaDetalle = new ArrayList<>();
+        String sQL = "CALL buscarDetalleVenta(?)";
+        try {
+            ps = con.prepareStatement(sQL);
+            ps.setString(1, addDetalle.getCalve_Producto());
+            rs = ps.executeQuery();
+
+            Calendar cal=new GregorianCalendar();
+            int hra,min,seg;
+            hra=cal.get(Calendar.HOUR_OF_DAY);
+            min=cal.get(Calendar.MINUTE);
+            seg=cal.get(Calendar.SECOND);
+            int fec=0;
+            String envHora=hra+":"+min+":"+seg;
+            String envFecha=String.valueOf(cal.get(Calendar.YEAR)+":"+cal.get(Calendar.MONTH)+":"+cal.get(Calendar.DAY_OF_MONTH));
+            
+            if (rs.next()) {
+                Detalle_VentaDTO detalle = new Detalle_VentaDTO();
+               
+                if (rs.getString(8).equals(addDetalle.getCalve_Producto())) {
+                    
+                    detalle.setNombre_Empleado(rs.getString(1));
+                    detalle.setNombre_Sucursal(rs.getString(2));
+                    detalle.setFecha_Venta(envFecha);
+                    detalle.setHora_Venta(envHora);
+                    detalle.setNombre_Producto(rs.getString(5));
+                    detalle.setCantidad_Producto(rs.getDouble(6));
+                    detalle.setSubTotal_Venta(rs.getDouble(7));
+                    detalle.setCalve_Producto(rs.getString(8));
+                        agregaDetalle.add(detalle);
+                    
+            }else if (!rs.getString(8).equals(addDetalle.getCalve_Producto())) {
+                          
+                    detalle.setNombre_Empleado(rs.getString(1));
+                    detalle.setNombre_Sucursal(rs.getString(2));
+                    detalle.setFecha_Venta(rs.getString(3));
+                    detalle.setHora_Venta(rs.getString(4));
+                    detalle.setNombre_Producto(rs.getString(5));
+                    detalle.setCantidad_Producto(rs.getDouble(6) + rs.getDouble(6));
+                    detalle.setSubTotal_Venta(rs.getDouble(7) * rs.getDouble(6));
+                    detalle.setCalve_Producto(rs.getString(8));
+                        agregaDetalle.add(detalle);
+                }
+                
+            }
+
+        } catch (SQLException ex) {
+
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err "+ex.getMessage());
+        } finally {
+            try {
+                ps.close();
+                con.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("cone "+ex.getMessage());
+            }
+        }
+        return agregaDetalle;
+    }
+ 
+             
+       
+       public ArrayList<EmpleUsuaDTO> mostrarrUsuarios() {
        
         ArrayList<EmpleUsuaDTO> usuarioView = new ArrayList<>();
         String sQL = "CALL mostrarUsuarios()";
@@ -75,7 +146,7 @@ public class Querys {
           
             
             while (rs.next()) {
-EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
+        EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
                 empUsu.setClave_Usuario(rs.getInt(1));
                empUsu.setNombre_Empleado(rs.getString(2));
                empUsu.setEdad_Empleado(rs.getInt(3));
@@ -335,6 +406,7 @@ EmpleUsuaDTO empUsu=new EmpleUsuaDTO();
             
         }
         
+
            public ArrayList<ProductoProveedorDTO> mostrarProducto() {
        
         ArrayList<ProductoProveedorDTO> productoView = new ArrayList<>();
@@ -350,9 +422,10 @@ ProductoProveedorDTO productioProveedor=new ProductoProveedorDTO();
                productioProveedor.setNombre_Producto(rs.getString(2));
                productioProveedor.setPrecio_Producto(rs.getDouble(3));
                productioProveedor.setExistencias_Producto(rs.getDouble(4));
-               productioProveedor.setDescripcion_Producto(rs.getString(5));
-               productioProveedor.setFecha_Cadocidad(rs.getString(6));
+               
+               productioProveedor.setFecha_Cadocidad(rs.getString(5));
                productioProveedor.setNombre_Proveedor(rs.getString(6));
+               
                productoView.add(productioProveedor);
 
             }
@@ -374,17 +447,47 @@ ProductoProveedorDTO productioProveedor=new ProductoProveedorDTO();
     }
         
     
-//    public static void main(String[] args) {
-//      Querys datosEditarUsuario=new Querys();
-//       EmpleUsuaDTO dtoEmpUsuarios=new EmpleUsuaDTO();
-//       ArrayList<EmpleUsuaDTO>regDatosUsuario=null;
-//       dtoEmpUsuarios.setClave_Usuario(3);
-//       regDatosUsuario=datosEditarUsuario.mostrarrUsuarios();
-//        
-//        for (EmpleUsuaDTO empleUsuaDTO : regDatosUsuario) {
-//            System.out.println(empleUsuaDTO.getNombre_Usuario());
-//        }
-//    }
-  
+   public static void main(String[] args) {
+      Querys datosEditarUsuario=new Querys();
+      Usuario uw=new Usuario();
+      uw.setNombre_Usuario("Santorine");
+      uw.setPass_Usuario("2");
+      if(datosEditarUsuario.iniciarSesion(uw)){
+          
+      }else{
+          System.out.println("no entro");
+      }
+   }
+public boolean iniciarSesion(Usuario u){
+        try {
+            String sQL="CALL IniciarSesion(?)";
+            ps=con.prepareStatement(sQL);
+            ps.setString(1, u.getNombre_Usuario());
+            rs=ps.executeQuery();
+            if(rs.next()){
+             
+                String encr=AES.encrypt(u.getPass_Usuario(), "");
+                String des=AES.decrypt(encr, "");
+                String descDB=AES.decrypt(rs.getString("password"), "");
+             
+                if(descDB.equals(des)){
+           
+                    return true;
+                }else{
+                  return false;
+                }
+              
+            
+            }
+            
+            return false;
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Querys.class.getName()).log(Level.SEVERE, null, ex);
+   return false;
+        }
+}  
+ 
 
 }

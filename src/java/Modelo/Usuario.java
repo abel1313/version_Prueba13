@@ -36,8 +36,6 @@ public class Usuario {
         this.nombre_Usuario = "";
         this.pass_Usuario = "";
         this.clave_Empleado = "";
-       
-
     }
 
     public Empleados getEmple() {

@@ -18,15 +18,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
   
- <script
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+  <link href="../Librerias/alertifyjs/css/alertify.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+   <script src="../Librerias/jquery-3.4.1.min.js" type="text/javascript"></script>
+  <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
+  
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <!-- Bootstrap CSS -->
+    <script src="../Librerias/alertifyjs/alertify.js" type="text/javascript"></script>  
+ 
   
  
         <link href="../CSS/estilos.css" rel="stylesheet" type="text/css"/>
@@ -147,7 +156,7 @@
 
                     <div class="tableUsuario">
 
-                        <table class="table table-bordered table table-lg">
+                        <table class="table table-bordered" id="tablaUsuario">
                             <thead>
                                 <tr class="table-active">
                                     <th scope="col">Nombre Empleado</th>
@@ -195,8 +204,8 @@
                                         --%>
 
 
-                                        <button class="btn btn-secondary editarUsuarios" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="<%=user.getClave_Usuario()%>">Editar</button>
-                                        <button class="btn btn-danger enviarEliminarUsuario" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="<%=user.getClave_Usuario()%>">Eliminar</button>
+                                        <button class="btn btn-secondary editarUsuarios" id="editarUsuario" data-toggle="modal" data-target="#exampleModalEditar" value="<%=user.getClave_Usuario()%>"><span class="glyphicon glyphicon-circle-arrow-down">Editar</span></button>
+                                        <button class="btn btn-danger glyphicon glyphicon-remove enviarEliminarUsuario" id="eliminarUsuario" data-toggle="modal" data-target="#exampleModalEliminar" value="<%=user.getClave_Usuario()%>">Eliminar</button>
 
                                     </th>
 

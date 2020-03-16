@@ -2,7 +2,11 @@
     font-family: 'Arial';
     font-size: 14px;
 }
-#tablaProductos,#productosTables{
+#tableUsuario table thead tr{
+    font-family: 'Arial';
+    font-size: 14px;
+}
+#tableUsuario,#tablaProductos,#productosTables{
        font-family: 'Arial';
     font-size: 14px;
 }
@@ -11,13 +15,21 @@
     font-size: 14px;
   
 }
+#tableUsuario table tbody tr{
+    font-family: 'Arial';
+    font-size: 14px;
+  
+}
+#tableUsuario{
+    font-family: 'Arial';
+    font-size: 14px;
+  
+}
+
 .tableUsuario table thead tr th:last-child{
-    width:210px;
-    
+    width:210px;   
 }
-#partecentral{
-    overflow: scroll;
-}
+
 #productosDetalleVenta{
     overflow: scroll;
 }
@@ -56,5 +68,11 @@
     height:245px;
     width: 100%;
     background: #f2f2f2;   
+}
+#divProductos{
+    width: 100%;
+    height: 300px;
+    border: 1px solid red;
+    
 }
 
